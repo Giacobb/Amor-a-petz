@@ -1,101 +1,130 @@
-<?php
-$host = 'localhost';
-$user = 'root';
-$pass = '';
-$db = 'bd_pet';
-
-$conn = new mysqli($host, $user, $pass, $db);
-if ($conn->connect_error) {
-  die("Erro na conexão: " . $conn->connect_error);
-}
-?>
-
 <!DOCTYPE html>
 <html lang="pt-br">
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Amor a Petz</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <title>Adote Amor</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
   <style>
+    /* Tipografia */
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Open Sans', sans-serif;
+      background-color: #f8f9fa;
+      color: #333;
+      line-height: 1.6;
     }
 
-    .hero {
+    h1, h2, h3, h4, h5 {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      color: #2c3e50;
+      margin-bottom: 1rem;
+    }
 
+    /* Carrossel */
+    .carousel .carousel-item img.banner {
       height: 400px;
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+      object-fit: cover;
+      border-radius: 12px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Cards dos pets */
+    .pet-card {
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      background-color: #fff;
+    }
+
+    .pet-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
     }
 
     .pet-card img {
-      height: 400px;
+      height: 250px;
       object-fit: cover;
+      border-top-left-radius: 12px;
+      border-top-right-radius: 12px;
+    }
+
+    .pet-card .card-body {
+      padding: 1.25rem;
+    }
+
+    .pet-card .card-title {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+      color: #34495e;
+    }
+
+    .pet-card .card-text {
+      font-size: 1rem;
+      color: #555;
+    }
+
+    .btn-primary {
+      background-color: #e74c3c;
+      border-color: #e74c3c;
+      transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+
+    .btn-primary:hover {
+      background-color: #c0392b;
+      border-color: #c0392b;
+    }
+
+    /* Seção Sobre */
+    #sobre p {
+      font-size: 1.125rem;
+      font-weight: 500;
+      color:rgb(45, 54, 47);
     }
   </style>
 </head>
 
 <body>
 
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container">
+  <?php include 'cabecalho.php'; ?>
 
-      <a class="navbar-brand" href="#">
-        <img src="img/icon.png" alt="Logo" width="75" height="75" class="d-inline-block align-text-center me-2">Amor a Petz
-      </a>
-
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto">
-          <li class="nav-item"><a class="nav-link" href="#sobre">Sobre</a></li>
-          <li class="nav-item"><a class="nav-link" href="#pets">Pets</a></li>
-          <li class="nav-item"><a class="nav-link" href="#contato">Contato</a></li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-  <style>
-    .carousel .carousel-item img.banner {
-      height: 400px;
-      object-fit: cover;
-    }
-  </style>
-  <div id="carouselExample" class="carousel slide">
-    <div class="carousel-inner">
+  <div id="carouselExample" class="carousel slide mb-5">
+    <div class="carousel-inner rounded-4 shadow-sm">
       <div class="carousel-item active">
-        <img src="img/banner.avif" class="d-block w-100 banner" alt="...">
+        <img src="img/banner.avif" class="d-block w-100 banner" alt="Banner 1">
       </div>
       <div class="carousel-item">
-        <img src="img/banner1.png" class="d-block w-100 banner" alt="...">
+        <img src="img/banner1.png" class="d-block w-100 banner" alt="Banner 2">
       </div>
       <div class="carousel-item">
-        <img src="img/banner2.png" class="d-block w-100 banner" alt="...">
+        <img src="img/banner2.png" class="d-block w-100 banner" alt="Banner 3">
       </div>
       <div class="carousel-item">
-        <img src="img/banner3.png" class="d-block w-100 banner" alt="...">
+        <img src="img/banner3.png" class="d-block w-100 banner" alt="Banner 4">
       </div>
     </div>
     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
       <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Previous</span>
+      <span class="visually-hidden">Anterior</span>
     </button>
     <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
       <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Next</span>
+      <span class="visually-hidden">Próximo</span>
     </button>
   </div>
 
   <section class="py-5 bg-light" id="sobre">
     <div class="container">
-      <h2 class="mb-4">Sobre o Projeto</h2>
-      <p>O Adote Amor é um projeto de adoção responsável que conecta animais resgatados a pessoas que querem um novo amigo. Trabalhamos com ONGs e protetores para garantir uma adoção ética, amorosa e segura.</p>
+      <h1 class="mb-4">Sobre o Projeto</h1>
+      <p><strong>Adote Amor é uma iniciativa voltada à adoção responsável de animais, criada com o propósito de transformar vidas — tanto dos animais quanto das pessoas que os acolhem.</strong> Nosso projeto atua como uma ponte entre animais resgatados, muitas vezes vítimas de abandono, maus-tratos ou negligência, e lares acolhedores que buscam um novo companheiro para compartilhar amor, carinho e cuidado.
+        Trabalhamos em parceria com ONGs, abrigos e protetores independentes para garantir que cada adoção seja feita com responsabilidade, ética e total transparência. Antes de serem disponibilizados para adoção, todos os animais passam por uma avaliação veterinária, são vacinados, vermifugados e, quando possível, castrados. Além disso, realizamos entrevistas e orientações com os adotantes, garantindo que o novo lar seja adequado e seguro para o animal.
+        Acreditamos que adotar é um ato de amor e empatia, e por isso promovemos campanhas de conscientização, eventos de adoção, apoio a lares temporários e ações educativas sobre bem-estar animal. O objetivo é não apenas encontrar lares definitivos para cães e gatos, mas também criar uma cultura de respeito e responsabilidade com os animais.
+        Se você está pronto para mudar a vida de um bichinho — e permitir que ele mude a sua — o Adote Amor está aqui para ajudar nessa jornada. Porque todo animal merece uma segunda chance. E todo amor merece ser adotado.</p>
     </div>
   </section>
 
@@ -104,59 +133,32 @@ if ($conn->connect_error) {
       <h1 class="mb-4"><strong>Pets disponíveis</strong></h1>
       <div class="row">
         <?php
-        $sql = "SELECT nome, tipo, sexo, idade, porte, descricao, imagem_url FROM animais";
+        $sql = "SELECT id, nome, tipo, sexo, idade, porte, descricao, imagem_url FROM animais";
         $result = $conn->query($sql);
 
         if ($result->num_rows > 0) {
           while ($row = $result->fetch_assoc()) {
             echo '<div class="col-md-4 mb-4">';
             echo '  <div class="card pet-card">';
-            echo '    <img src="' . $row['imagem_url'] . '" class="card-img-top" alt="Pet">';
+            echo '    <img src="' . htmlspecialchars($row['imagem_url']) . '" class="card-img-top" alt="Pet">';
             echo '    <div class="card-body">';
             echo '      <h5 class="card-title">' . htmlspecialchars($row['nome']) . '</h5>';
-            echo '      <p class="card-text">' . htmlspecialchars($row['sexo']) . ', ' . htmlspecialchars($row['idade']) . ', porte ' . htmlspecialchars($row['porte']) . ', ' . htmlspecialchars($row['descricao']) . '</p>';
-            echo '      <a href="#contato" class="btn btn-primary">Quero Adotar</a>';
+            echo '      <p class="card-text">' . htmlspecialchars($row['sexo']) . ', ' . htmlspecialchars($row['idade']) . ', porte ' . htmlspecialchars($row['porte']) . '</p>';
+            echo '      <p class="card-text">' . htmlspecialchars($row['descricao']) . '</p>';
+            echo '      <a href="detalhes.php?id=' . $row['id'] . '" class="btn btn-primary">Quero Adotar</a>';
             echo '    </div>';
             echo '  </div>';
             echo '</div>';
           }
         } else {
-          echo '<p>Nenhum pet disponível no momento.</p>';
+          echo '<p class="text-muted">Nenhum pet disponível no momento.</p>';
         }
         ?>
       </div>
     </div>
   </section>
 
-  <button type="button" class="btn btn-primary d-flex justify-content-center" data-bs-toggle="modal" data-bs-target="#exampleModal" style="margin-left: 460px;">
-  Precisa de ajuda?
-  </button>
-
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel"> Precisa de ajuda?</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        Contatos:<br>
-        Whats : (19) 9999-999 <br>
-        Email : emailteste@gmail.com<br>
-        Tel : 4545-5454
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-  <footer class="bg-dark text-white text-center py-3">
-    <p class="mb-0">&copy; 2025 Amor a Petz - Felipe Giacobbe.</p>
-  </footer>
+  <?php include 'rodape.php'; ?>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
