@@ -30,7 +30,6 @@
     .carousel .carousel-item img.banner {
       height: 400px;
       object-fit: cover;
-      border-radius: 12px;
       box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
     }
 
@@ -94,29 +93,40 @@
   <?php include 'cabecalho.php'; ?>
 
   <div id="carouselExample" class="carousel slide mb-5">
-    <div class="carousel-inner rounded-4 shadow-sm">
-      <div class="carousel-item active">
-        <img src="img/banner.avif" class="d-block w-100 banner" alt="Banner 1">
-      </div>
-      <div class="carousel-item">
-        <img src="img/banner1.png" class="d-block w-100 banner" alt="Banner 2">
-      </div>
-      <div class="carousel-item">
-        <img src="img/banner2.png" class="d-block w-100 banner" alt="Banner 3">
-      </div>
-      <div class="carousel-item">
-        <img src="img/banner3.png" class="d-block w-100 banner" alt="Banner 4">
-      </div>
-    </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Anterior</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Próximo</span>
-    </button>
+
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#carouselExample" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+    <button type="button" data-bs-target="#carouselExample" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    <button type="button" data-bs-target="#carouselExample" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    <button type="button" data-bs-target="#carouselExample" data-bs-slide-to="3" aria-label="Slide 4"></button>
   </div>
+
+  <div class="carousel-inner rounded-4 shadow-sm">
+    <div class="carousel-item active">
+      <img src="img/banner.avif" class="d-block w-100 banner" alt="Banner 1">
+    </div>
+    <div class="carousel-item">
+      <img src="img/banner1.png" class="d-block w-100 banner" alt="Banner 2">
+    </div>
+    <div class="carousel-item">
+      <img src="img/banner2.png" class="d-block w-100 banner" alt="Banner 3">
+    </div>
+    <div class="carousel-item">
+      <img src="img/banner3.png" class="d-block w-100 banner" alt="Banner 4">
+    </div>
+  </div>
+
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Anterior</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Próximo</span>
+  </button>
+  <div style="height: 40px; background-color: rgb(0, 88, 252);"></div>
+</div>
+
 
   <section class="py-5 bg-light" id="sobre">
     <div class="container">
@@ -129,34 +139,50 @@
   </section>
 
   <section class="py-5" id="pets">
-    <div class="container">
-      <h1 class="mb-4"><strong>Pets disponíveis</strong></h1>
-      <div class="row">
-        <?php
-        $sql = "SELECT id, nome, tipo, sexo, idade, porte, descricao, imagem_url FROM animais";
-        $result = $conn->query($sql);
+  <div class="container">
+    <h1 class="mb-4"><strong>Pets disponíveis</strong></h1>
+    <div class="row">
+      <?php
+      $sql = "SELECT id, nome, tipo, sexo, idade, porte, descricao, imagem_url FROM animais";
+      $result = $conn->query($sql);
 
-        if ($result->num_rows > 0) {
-          while ($row = $result->fetch_assoc()) {
+      if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $id = $row['id'];
+            $nome = $row['nome'];
+            $sexo = $row['sexo'];
+            $idade = $row['idade'];
+            $porte = $row['porte'];
+            $descricao = $row['descricao'];
+            $imagem = $row['imagem_url'];
+            $descricao_limitada = mb_substr($descricao, 0, 25);
+            if (mb_strlen($descricao) > 255) {
+                $descricao_limitada .= '...';
+            }
+    
             echo '<div class="col-md-4 mb-4">';
             echo '  <div class="card pet-card">';
-            echo '    <img src="' . htmlspecialchars($row['imagem_url']) . '" class="card-img-top" alt="Pet">';
+            echo '    <img src="' . $imagem . '" class="card-img-top" alt="Pet">';
             echo '    <div class="card-body">';
-            echo '      <h5 class="card-title">' . htmlspecialchars($row['nome']) . '</h5>';
-            echo '      <p class="card-text">' . htmlspecialchars($row['sexo']) . ', ' . htmlspecialchars($row['idade']) . ', porte ' . htmlspecialchars($row['porte']) . '</p>';
-            echo '      <p class="card-text">' . htmlspecialchars($row['descricao']) . '</p>';
-            echo '      <a href="detalhes.php?id=' . $row['id'] . '" class="btn btn-primary">Quero Adotar</a>';
-            echo '    </div>';
-            echo '  </div>';
-            echo '</div>';
-          }
-        } else {
-          echo '<p class="text-muted">Nenhum pet disponível no momento.</p>';
+            echo '      <h5 class="card-title">' . $nome . '</h5>';
+             '      <p class="card-text">' . $sexo . ', ' . $idade . ', porte ' . $porte . '</p>';
+             '      <p class="card-text">' . $descricao_limitada . '</p>';
+            '      <a href="detalhes.php?id=' . $id . '" class="btn btn-primary">Quero Adotar</a>';
+             '    </div>';
+             '  </div>';
+             '</div>';
+            
         }
-        ?>
-      </div>
+    }
+    
+     else {
+        echo '<p class="text-muted">Nenhum pet disponível no momento.</p>';
+      }
+      ?>
     </div>
-  </section>
+  </div>
+</section>
+
 
   <?php include 'rodape.php'; ?>
 

@@ -37,15 +37,18 @@ if ($conn->connect_error) {
       height: 400px;
       object-fit: cover;
     }
+    .navbar-custom {
+  background-color:rgb(16,108,252);
+}
   </style>
 </head>
 
 <body>
 
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <nav class="navbar navbar-expand-lg navbar-light navbar-custom">
     <div class="container">
 
-      <a class="navbar-brand" href="#">
+      <a class="navbar-brand" href="index.php">
         <img src="img/icon.png" alt="Logo" width="75" height="75" class="d-inline-block align-text-center me-2">Amor a Petz
       </a>
 

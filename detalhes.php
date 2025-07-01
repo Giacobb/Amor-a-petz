@@ -3,7 +3,6 @@
 <?php
 include "cabecalho.php";
 
-
 $servidor = 'localhost';
 $bd = 'bd_pet';
 $usuario = 'root';
@@ -13,7 +12,6 @@ $conn = mysqli_connect($servidor, $usuario, $senha, $bd);
 if (!$conn) {
     die("Erro na conexão: " . mysqli_connect_error());
 }
-
 
 $id = $_GET['id'] ?? null;
 
@@ -67,12 +65,12 @@ if ($pet = mysqli_fetch_assoc($resultado)) {
 
             <div class="col-md-7">
                 <div class="info-box">
-                    <h2><?= htmlspecialchars($pet['nome']) ?></h2>
-                    <p><strong>Tipo:</strong> <?= htmlspecialchars($pet['tipo']) ?></p>
-                    <p><strong>Sexo:</strong> <?= htmlspecialchars($pet['sexo']) ?></p>
-                    <p><strong>Idade:</strong> <?= htmlspecialchars($pet['idade']) ?></p>
-                    <p><strong>Porte:</strong> <?= htmlspecialchars($pet['porte']) ?></p>
-                    <p><strong>Descrição:</strong> <?= htmlspecialchars($pet['descricao']) ?></p>
+                    <h2><?= $pet['nome'] ?></h2>
+                    <p><strong>Tipo:</strong> <?= $pet['tipo'] ?></p>
+                    <p><strong>Sexo:</strong> <?= $pet['sexo'] ?></p>
+                    <p><strong>Idade:</strong> <?= $pet['idade'] ?></p>
+                    <p><strong>Porte:</strong> <?= $pet['porte'] ?></p>
+                    <p><strong>Descrição:</strong> <?= $pet['descricao'] ?></p>
                     <button type="button" class="btn btn-primary d-flex justify-content-center" data-bs-toggle="modal" data-bs-target="#exampleModal" style="margin-left: 460px;">
                         Quer adotar?
                     </button>
@@ -89,21 +87,19 @@ if ($pet = mysqli_fetch_assoc($resultado)) {
                                     Whats : (19) 9999-999 <br>
                                     Email : emailteste@gmail.com<br>
                                     Tel : 4545-5454
-
                                 </div>
                             </div>
                         </div>
-
+                    </div>
 
                 </div>
-                
             </div>
-            
+        </div>
+    </div>
+<?php
+} else {
+    echo "<div class='container my-5'><p class='alert alert-danger'>Pet não encontrado!</p></div>";
+}
 
-        <?php
-    } else {
-        echo "<div class='container my-5'><p class='alert alert-danger'>Pet não encontrado!</p></div>";
-    }
-
-    include "rodape.php";
-        ?>
+include "rodape.php";
+?>
