@@ -109,7 +109,7 @@
       <img src="img/banner1.png" class="d-block w-100 banner" alt="Banner 2">
     </div>
     <div class="carousel-item">
-      <img src="img/banner2.png" class="d-block w-100 banner" alt="Banner 3">
+      <img src="img/fundoa.jfif" class="d-block w-100 banner" alt="Banner 3">
     </div>
     <div class="carousel-item">
       <img src="img/banner3.png" class="d-block w-100 banner" alt="Banner 4">
@@ -143,41 +143,40 @@
     <h1 class="mb-4"><strong>Pets disponíveis</strong></h1>
     <div class="row">
       <?php
-      $sql = "SELECT id, nome, tipo, sexo, idade, porte, descricao, imagem_url FROM animais";
+      $sql = "SELECT id, nome, tipo, sexo, idade, porte, descricao, imagem_url FROM tb_animais limit 6";
       $result = $conn->query($sql);
 
       if ($result->num_rows > 0) {
-        while ($row = $result->fetch_assoc()) {
-            $id = $row['id'];
-            $nome = $row['nome'];
-            $sexo = $row['sexo'];
-            $idade = $row['idade'];
-            $porte = $row['porte'];
-            $descricao = $row['descricao'];
-            $imagem = $row['imagem_url'];
-            $descricao_limitada = mb_substr($descricao, 0, 25);
-            if (mb_strlen($descricao) > 255) {
-                $descricao_limitada .= '...';
-            }
-    
-            echo '<div class="col-md-4 mb-4">';
-            echo '  <div class="card pet-card">';
-            echo '    <img src="' . $imagem . '" class="card-img-top" alt="Pet">';
-            echo '    <div class="card-body">';
-            echo '      <h5 class="card-title">' . $nome . '</h5>';
-             '      <p class="card-text">' . $sexo . ', ' . $idade . ', porte ' . $porte . '</p>';
-             '      <p class="card-text">' . $descricao_limitada . '</p>';
-            '      <a href="detalhes.php?id=' . $id . '" class="btn btn-primary">Quero Adotar</a>';
-             '    </div>';
-             '  </div>';
-             '</div>';
-            
-        }
+  while ($row = $result->fetch_assoc()) {
+    $id = $row['id'];
+    $nome = $row['nome'];
+    $sexo = $row['sexo'];
+    $idade = $row['idade'];
+    $porte = $row['porte'];
+    $descricao = $row['descricao'];
+    $imagem = $row['imagem_url'];
+
+    $descricao_limitada = mb_substr($descricao, 0, 25, 'UTF-8');
+    if (mb_strlen($descricao, 'UTF-8') > 255) {
+      $descricao_limitada .= '...';
     }
+    ?>
     
-     else {
-        echo '<p class="text-muted">Nenhum pet disponível no momento.</p>';
-      }
+    <div class="col-md-4 mb-4">
+      <div class="card pet-card">
+        <img src="<?= $imagem ?>" class="card-img-top" alt="Pet">
+        <div class="card-body">
+          <h5 class="card-title"><?= $nome ?></h5>
+          <p class="card-text"><?= $sexo ?>, <?=$idade?>, porte <?= $porte ?></p>
+          <p class="card-text"><?= $descricao_limitada ?></p>
+          <a href="detalhes.php?id=<?= $id ?>" class="btn btn-primary">Quero Adotar</a>
+        </div>
+      </div>
+    </div>
+
+    <?php
+  }
+}
       ?>
     </div>
   </div>

@@ -4,7 +4,7 @@
 include "cabecalho.php";
 
 $servidor = 'localhost';
-$bd = 'bd_pet';
+$bd = 'bd_petshop';
 $usuario = 'root';
 $senha = '';
 
@@ -21,7 +21,7 @@ if (!$id) {
     exit;
 }
 
-$sql = "SELECT * FROM animais WHERE id = $id";
+$sql = "SELECT * FROM tb_animais WHERE id = $id";
 $resultado = mysqli_query($conn, $sql);
 
 if ($pet = mysqli_fetch_assoc($resultado)) {
@@ -79,7 +79,7 @@ if ($pet = mysqli_fetch_assoc($resultado)) {
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="exampleModalLabel"> Precisa de ajuda?</h1>
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel"> Entre em Contato para mais Informações</h1>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
@@ -98,7 +98,7 @@ if ($pet = mysqli_fetch_assoc($resultado)) {
     </div>
 <?php
 } else {
-    echo "<div class='container my-5'><p class='alert alert-danger'>Pet não encontrado!</p></div>";
+   
 }
 
 include "rodape.php";
